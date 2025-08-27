@@ -1,0 +1,27 @@
+@use '@angular/material' as mat;
+
+// Core do Material
+@include mat.core();
+
+// Paletas (Material 16)
+$primary: mat.define-palette(mat.$indigo-palette);
+$accent : mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$warn   : mat.define-palette(mat.$red-palette);
+
+// Tema claro (Material 16)
+$theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Aplica tema a todos os componentes
+@include mat.all-component-themes($theme);
+
+// Globais
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

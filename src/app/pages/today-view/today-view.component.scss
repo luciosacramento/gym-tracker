@@ -1,0 +1,11 @@
+.topbar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 8px 0; }
+.w250 { width: 250px; }
+.meta { display: flex; gap: 16px; align-items: center; }
+.meta .weights { display: flex; gap: 10px; color: #555; font-size: 13px; }
+.center { display: flex; justify-content: center; padding: 16px; }
+.table-responsive { overflow: auto; }
+.fullwidth { width: 100%; min-width: 680px; }
+.exercise .name { font-weight: 600; }
+.exercise .meta { font-size: 12px; color: #666; }
+.w160 { width: 160px; }
+.actions { margin-top: 16px; display: flex; justify-content: flex-end; gap: 8px; }

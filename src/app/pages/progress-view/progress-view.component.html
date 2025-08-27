@@ -1,0 +1,32 @@
+<mat-card>
+  <div class="row">
+    <mat-form-field appearance="fill" class="w240">
+      <mat-label>Treino</mat-label>
+      <mat-select [(ngModel)]="selectedPlanId" (selectionChange)="loadExercises()">
+        <mat-option *ngFor="let p of plans" [value]="p.id">{{ p.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w320">
+      <mat-label>Exercício</mat-label>
+      <mat-select [(ngModel)]="selectedExerciseId">
+        <mat-option *ngFor="let e of exercises" [value]="e.id">{{ e.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="loadHistory()" [disabled]="!selectedExerciseId">Carregar gráfico</button>
+  </div>
+</mat-card>
+
+<mat-card class="chart-card">
+  <div class="chart-wrap">
+    <div *ngIf="loading" class="center">
+      <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <canvas baseChart *ngIf="!loading"
+      [data]="chartData"
+      [options]="chartOptions"
+      chartType="line">
+    </canvas>
+  </div>
+</mat-card>

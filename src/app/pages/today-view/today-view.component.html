@@ -1,0 +1,73 @@
+<mat-card>
+  <div class="topbar">
+    <mat-form-field appearance="fill" class="w250">
+      <mat-label>Treino</mat-label>
+      <mat-select [(ngModel)]="selectedPlanId" (selectionChange)="onChangePlan()">
+        <mat-option *ngFor="let p of plans" [value]="p.id">{{ p.name }} ({{ p.exercises_count || 0 }})</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="meta">
+      <div *ngIf="planMeta?.weekNumber">Semana {{ planMeta?.weekNumber }}</div>
+      <div class="weights" *ngIf="planMeta">
+        <span *ngIf="planMeta?.start_weight">Inicial: {{ planMeta?.start_weight }}</span>
+        <span *ngIf="planMeta?.end_weight">Final: {{ planMeta?.end_weight }}</span>
+      </div>
+    </div>
+
+    <button mat-stroked-button color="primary" (click)="fetch()">Atualizar</button>
+  </div>
+</mat-card>
+
+<ng-container *ngIf="loading">
+  <div class="center">
+    <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!loading">
+  <mat-card>
+    <h2>Treino de Hoje</h2>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="rows" class="mat-elevation-z1 fullwidth">
+
+        <ng-container matColumnDef="exercise">
+          <th mat-header-cell *matHeaderCellDef> Exercício </th>
+          <td mat-cell *matCellDef="let r">
+            <div class="exercise">
+              <div class="name">{{ r.name }}</div>
+              <div class="meta" *ngIf="r.repsSchema">{{ r.repsSchema }}</div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reps">
+          <th mat-header-cell *matHeaderCellDef> Séries </th>
+          <td mat-cell *matCellDef="let r">{{ r.sets }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastWeight">
+          <th mat-header-cell *matHeaderCellDef> Último peso </th>
+          <td mat-cell *matCellDef="let r">{{ r.lastWeight ?? '—' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="currentWeight">
+          <th mat-header-cell *matHeaderCellDef> Peso de hoje </th>
+          <td mat-cell *matCellDef="let r">
+            <mat-form-field appearance="outline" class="w160">
+              <input matInput type="text" [(ngModel)]="r.currentWeight" placeholder="ex.: 40, BW, 40 + elástico">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="saveAll()">Salvar treino</button>
+    </div>
+  </mat-card>
+</ng-container>
