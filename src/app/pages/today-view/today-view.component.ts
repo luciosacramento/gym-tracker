@@ -27,7 +27,7 @@ type Row = TodayExercise & { currentWeight: string | null; sets: number; };
 export class TodayViewComponent implements OnInit {
   loading = false;
   rows: Row[] = [];
-  displayedColumns = ['exercise', 'reps', 'lastWeight', 'currentWeight'];
+  displayedColumns = ['exercise', 'currentWeight'];
 
   plans: TrainingPlan[] = [];
   selectedPlanId: number | null = null;
