@@ -37,7 +37,7 @@
           <td mat-cell *matCellDef="let r">
             <div class="exercise">
               <div class="name">{{ r.name }}</div>
-              <div class="meta" *ngIf="r.repsSchema">{{ r.repsSchema }} - {{ r.lastWeight ?? '—' }}</div>
+              <div class="meta" *ngIf="r.repsSchema">{{ r.repsSchema }} - Último peso: {{ r.lastWeight ?? '—' }}</div>
             </div>
           </td>
         </ng-container>
